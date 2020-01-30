@@ -1,7 +1,7 @@
 
 ## FIN TRACK
 
-A backend application to serve the fintrack app.
+A backend application to serve the fintrack andriod app.
 
 Read the [wiki](https://github.com/Tyav/Fintrack-backend/wiki) to understand how the application is structured.
 
