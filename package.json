@@ -1,6 +1,6 @@
 {
-  "name": "babybliss-gift-app",
-  "description": "A mongo and node app for babybliss gift platform",
+  "name": "Fin track backend",
+  "description": "A simple backend service that serves the fintrack app ",
   "version": "1.0.0",
   "author": {
     "name": "Moses Tyav",

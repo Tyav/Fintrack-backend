@@ -6,7 +6,7 @@ const decode = require('../middlewares/decode');
 
 // Login corporate users
 router.post(
-  '/corporate_login',
+  '/user_login',
   validate(validateParams.login, { abortEarly: false }),
   authController.corporateLogin
 );
