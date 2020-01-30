@@ -1,4 +1,4 @@
-const Admin = require('./app/models/admin.model');
+const Admin = require('./app/models/admin');
 
 async function createAdmin() {
   let admin;

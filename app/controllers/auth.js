@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const User = require('../models/user');
-const Admin = require('../models/admin.model');
+const Admin = require('../models/admin');
 const sendResponse = require('../../helpers/sendResponse');
 const APIError = require('../../helpers/APIError');
 

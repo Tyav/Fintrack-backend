@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const Admin = require('../models/admin.model');
+const Admin = require('../models/admin');
 const sendResponse = require('../../helpers/sendResponse');
 const tokendecoder = require('../../helpers/tokenDecoder');
 const APIError = require('../../helpers/APIError');

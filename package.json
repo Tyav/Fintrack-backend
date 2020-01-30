@@ -1,5 +1,5 @@
 {
-  "name": "Fin track backend",
+  "name": "Fin-track-backend",
   "description": "A simple backend service that serves the fintrack app ",
   "version": "1.0.0",
   "author": {
@@ -16,7 +16,7 @@
     "prod": "pm2-runtime start ecosystem.config.js --env production"
   },
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "celebrate": "^10.0.1",
     "co": "^4.6.0",
