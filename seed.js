@@ -7,7 +7,7 @@ async function createAdmin() {
       name: 'James',
       email: 'James1@gmail.com',
       phone: '3434234234',
-      role: 2,
+      isSuper: true,
       password: '1234567890'
     });
     await admin.save();
