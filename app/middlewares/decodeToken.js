@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const ForgotPassword = require('../models/forgot-password.model');
+const ForgotPassword = require('../models/forgot-password');
 const sendResponse = require('../../helpers/sendResponse');
 const { decodeOtp } = require('../../helpers/otpEncoder');
 

@@ -19,7 +19,5 @@ router.put('/approve_user', adminCtrl.approveUser);
 // view all user
 router.get('/users', adminCtrl.getAllUser);
 
-// view all vouchers
-router.get('/vouchers', adminCtrl.getAllVouchers);
 
 module.exports = router;

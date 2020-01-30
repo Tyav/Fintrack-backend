@@ -8,7 +8,7 @@ const decode = require('../middlewares/decode');
 router.post(
   '/user_login',
   validate(validateParams.login, { abortEarly: false }),
-  authController.corporateLogin
+  authController.userLogin
 );
 
 // Login admin designated users

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const httpStatus = require('http-status');
 // eslint-disable-next-line no-unused-vars
 const { encodeOtp, decodeOtp } = require('../../helpers/otpEncoder');

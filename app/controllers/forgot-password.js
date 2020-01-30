@@ -1,10 +1,10 @@
 const httpStatus = require('http-status');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const otpGen = require('otp-generator');
 const sendResponse = require('../../helpers/sendResponse');
 const { userOtpMail } = require('../../helpers/template-mail');
 const mail = require('../../helpers/sendMail');
-const ForgotPassword = require('../models/forgot-password.model');
+const ForgotPassword = require('../models/forgot-password');
 const User = require('../models/user');
 
 /**
