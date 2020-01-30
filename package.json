@@ -61,7 +61,7 @@
     "nodemon": "^1.19.4",
     "npm-check-updates": "^3.1.24",
     "prettier": "^1.18.2",
-    "supertest": "^4.0.2",
+    "supertest": "^4.0.2"
   },
   "keywords": [
     "node",

@@ -1,5 +1,5 @@
 
-## BB-GIFT-CARD
+## FIN TRACK
 
 An application for gifting vouchers in e-card.
 
@@ -8,7 +8,7 @@ Read the [wiki](https://github.com/Tyav/Fintrack-backend/wiki) to understand how
 ## Usage
 
     git clone https://github.com/Tyav/Fintrack-backend.git
-    cd fintrack
+    cd Fintrack-backend
     npm install
     cp .env.example .env
     npm start
@@ -45,7 +45,7 @@ If you make any changes to the file, nodemon should automatically pick up and re
 To run tests
 
 ```sh
-docker-compose exec -e MONGODB_URL=mongodb://localhost:27017/noobjs_test node npm test
+docker-compose exec -e MONGODB_URL=mongodb://localhost:27017/fintrack_test node npm test
 ```
 
 Note that we are overriding the environment variable set in `.env` file because we don't want our data erased by the tests.
