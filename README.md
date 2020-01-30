@@ -13,6 +13,12 @@ Read the [wiki](https://github.com/Tyav/Fintrack-backend/wiki) to understand how
     cp .env.example .env
     npm start
 
+
+## Collaboration
+
+You can collaborate if added to the project, so here are a few things to note.
+
+
 ## Docker
 
 You can also use docker for development. Make sure you run npm install on your host machine so that code linting and everything works fine.
