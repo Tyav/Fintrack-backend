@@ -1,7 +1,7 @@
 
 ## FIN TRACK
 
-An application for gifting vouchers in e-card.
+A backend application to serve the fintrack app.
 
 Read the [wiki](https://github.com/Tyav/Fintrack-backend/wiki) to understand how the application is structured.
 
