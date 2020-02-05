@@ -5,7 +5,8 @@ const sendResponse = require('../../helpers/sendResponse');
 
 exports.create = async (req, res, next) => {
   try {
-    const fund = await Fund.create(req.body);
+    const user = req.sub;
+    const fund = await Fund.create({ ...req.body, user });
     await fund.save();
     res.json(sendResponse(httpStatus.CREATED, 'Request sent', fund, null));
   } catch (err) {
