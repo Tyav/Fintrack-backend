@@ -8,12 +8,12 @@ const validateParams = require('../validations/auth');
 router.post('/forgot', forgotPasswordCtrl.create);
 
 //verifies the authencity of the token
-router.use(
-  validate(validateParams.forgotPass, { abortEarly: false }),
-  decodeToken
-);
-
 // resets user password
-router.put('/reset', forgotPasswordCtrl.reset);
+router.put(
+  '/reset',
+  validate(validateParams.forgotPass, { abortEarly: false }),
+  decodeToken,
+  forgotPasswordCtrl.reset
+);
 
 module.exports = router;

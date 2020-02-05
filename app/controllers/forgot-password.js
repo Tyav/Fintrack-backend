@@ -14,7 +14,7 @@ exports.create = async (req, res, next) => {
   try {
     const { email } = req.body;
     const userType = req.userType;
-    const user = await User.getByEmail(email, true);
+    const user = await User.getByEmail(email);
     if (!user) {
       // send success response even if user does not exist but don't send mail
       return res.json(
@@ -27,9 +27,7 @@ exports.create = async (req, res, next) => {
     }
     //generate token and hash it
     let otp = otpGen.generate(6, {
-      specialChars: false,
-      alphabets: false,
-      upperCase: false
+      specialChars: false
     });
     let token = await bcrypt.hash(otp, 10);
     //set expiration for token
@@ -52,7 +50,9 @@ exports.create = async (req, res, next) => {
       sendResponse(
         httpStatus.OK,
         'Email containing token sent, check your mail',
-        null, null, newForgotPass.generateToken(otp)
+        null,
+        null,
+        newForgotPass.generateToken()
       )
     );
   } catch (error) {
@@ -65,12 +65,18 @@ exports.reset = async (req, res, next) => {
     // add validation for reset password,need to check for token
     const { email } = req.password;
     const { password, token } = req.body;
-    password.checkToken(token)
+    await req.password.checkToken(token);
     const user = await User.getByEmail(email, true);
     user.password = password;
     await user.save();
     return res.json(
-      sendResponse(httpStatus.OK, 'Password change successfully')
+      sendResponse(
+        httpStatus.OK,
+        'Password changed successfully',
+        user.transformUser(),
+        null,
+        user.token()
+      )
     );
   } catch (error) {
     next(error);

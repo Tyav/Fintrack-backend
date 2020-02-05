@@ -44,8 +44,8 @@ ForgotPasswordSchema.statics = {
  * Instance methods
  */
 ForgotPasswordSchema.method({
-  generateToken(token) {
-    return encodeOtp(token, this.email, this._id);
+  generateToken() {
+    return encodeOtp(this.email, this._id);
   },
   async checkToken(token) {
     const isValidToken = await bcrypt.compare(token, this.token);

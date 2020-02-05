@@ -15,38 +15,38 @@ const AdminSchema = new Schema(
     name: {
       type: String,
       minlength: 1,
-      required: true,
+      required: true
     },
     email: {
       type: String,
       required: true,
       match: /^\w+(\.*\w+)*@decagonhq\.com$/,
-      unique: true,
+      unique: true
     },
     password: {
       type: String,
-      required: true,
+      required: true
     },
     phone: {
       type: String,
-      required: true,
+      required: true
     },
     role: {
       type: Schema.Types.ObjectId,
-      required: true,
+      required: true
     },
     isSuper: {
       type: Boolean,
-      default: true,
+      default: true
     },
     isLine: {
       type: Boolean,
-      default: true,
+      default: true
     },
     deleted: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   { timestamps: true }
 );
@@ -83,13 +83,23 @@ AdminSchema.method({
     return bcrypt.compare(password, this.password);
   },
   transformUser() {
-    let select = ['role', '_id', 'isSuper', 'name', 'email', 'phone', 'role', 'createdAt', 'updatedAt'];
+    let select = [
+      'role',
+      '_id',
+      'isSuper',
+      'name',
+      'email',
+      'phone',
+      'role',
+      'createdAt',
+      'updatedAt'
+    ];
     return pick(select, this);
   },
   // Generates admin token
   token() {
     return EncodeToken(this.email, this._id, this.isAdmin);
-  },
+  }
 });
 
 /**
@@ -112,7 +122,7 @@ AdminSchema.static({
     const admin = await this.getByEmail(email, false);
     const err = {
       status: httpStatus.UNAUTHORIZED,
-      isPublic: true,
+      isPublic: true
     };
     if (password) {
       if (admin && (await admin.passwordMatches(password))) {
@@ -134,17 +144,18 @@ AdminSchema.static({
     delete query.skip;
     delete query.limit;
 
-    return this.find({ ...query }).populate({
-      path: 'role'
+    return this.find({ ...query })
+      .populate({
+        path: 'role'
       })
       .select('-password')
       .sort({
-        createdAt: -1,
+        createdAt: -1
       })
       .skip(+skip)
       .limit(+limit)
       .exec();
-  },
+  }
 });
 
 /**
