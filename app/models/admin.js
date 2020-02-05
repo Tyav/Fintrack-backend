@@ -33,6 +33,7 @@ const AdminSchema = new Schema(
     },
     role: {
       type: Schema.Types.ObjectId,
+      ref: 'Role',
       required: true
     },
     isSuper: {
