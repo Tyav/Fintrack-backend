@@ -18,7 +18,7 @@ const CategorySchema = new mongoose.Schema({
   },
   for: {
     type: String,
-    enum: ['Fund', 'Claim'],
+    enum: ['Fund', 'Claim', 'All'],
     required: true
   }
 });

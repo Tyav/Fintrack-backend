@@ -5,12 +5,16 @@ const APIError = require('../../helpers/APIError');
 
 const FundSchema = new mongoose.Schema(
   {
+    title: {
+      type: String,
+      required: true
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true
     },
-    caterory: {
+    category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
       required: true
@@ -50,11 +54,17 @@ const FundSchema = new mongoose.Schema(
  * - validations
  * - virtuals
  */
-FundSchema.post('save', function(next) {
+FundSchema.post('save', function(doc, next) {
   /**
    * Performs operation after save
    */
-  next();
+  doc
+    .populate({ path: 'user', select: '-password' })
+    .populate({ path: 'category', select: 'title' })
+    .execPopulate()
+    .then(() => {
+      next();
+    });
 });
 /**
  * static methods
