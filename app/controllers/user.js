@@ -1,7 +1,10 @@
 const httpStatus = require('http-status');
+const otpGen = require('otp-generator');
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const sendResponse = require('../../helpers/sendResponse');
 const APIError = require('../../helpers/APIError');
+const Validation = require('../models/Verification');
 
 // load a user into req.user from the ID
 exports.load = async (req, res, next, id) => {
@@ -21,7 +24,6 @@ exports.load = async (req, res, next, id) => {
     next(error);
   }
 };
-
 
 // returns a single user by a given ID
 exports.getAUser = async (req, res, next) => {
@@ -92,6 +94,7 @@ exports.updateUser = async (req, res, next) => {
 // get statistics for a corporate user
 exports.stats = async (req, res, next) => {
   try {
+    // eslint-disable-next-line no-unused-vars
     const user = req.me;
     // implimentation to get total request goes here
 
@@ -129,5 +132,49 @@ exports.changePassword = async (req, res, next) => {
     );
   } catch (error) {
     next(error);
+  }
+};
+
+// create user
+exports.createUser = async (req, res, next) => {
+  try {
+    // check for user email
+    const userExist = await User.getByEmail(req.body.email);
+    if (userExist) {
+      return res.json(
+        sendResponse(httpStatus.BAD_REQUEST, 'User exist', null, {
+          message: 'User exist'
+        })
+      );
+    }
+
+    // create signup token and send to user to validate signup
+    let otp = otpGen.generate(6, {
+      specialChars: false
+    });
+    const user = new User(req.body);
+    await user.save();
+    // create validation object
+    let token = await bcrypt.hash(otp, 10);
+    //set expiration for token
+    const expireAt = Date.now() + 300000;
+    const validation = await Validation.create({
+      user: user._id,
+      token,
+      expireAt
+    });
+    token = validation.generateToken();
+    user.sendVerification(otp);
+    return res.json(
+      sendResponse(
+        httpStatus.CREATED,
+        'Verification Token sent to email',
+        null,
+        null,
+        token
+      )
+    );
+  } catch (err) {
+    next(err);
   }
 };
