@@ -8,8 +8,11 @@ module.exports = {
         .required(),
       email: Joi.string()
         .email()
+        .regex(/^\w+(\.*\w+)*@decagonhq\.com$/, 'Decagon @decagonhq.com')
         .required(),
-      phone: Joi.string().required(),
+      phone: Joi.string()
+        .regex(/\+{0,1}[0-9]+/)
+        .required(),
       password: Joi.string()
         .min(8)
         .required()
