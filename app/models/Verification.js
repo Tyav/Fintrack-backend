@@ -2,22 +2,17 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const httpStatus = require('http-status');
 // eslint-disable-next-line no-unused-vars
-const { encodeOtp, decodeOtp } = require('../../helpers/otpEncoder');
+const { encodeSignupOtp, decodeOtp } = require('../../helpers/otpEncoder');
 const APIError = require('../../helpers/APIError');
 
-const ForgotPasswordSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    minlength: 5,
-    required: true
+const VerificationSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
   },
   token: {
     type: String,
-    required: true
-  },
-  userType: {
-    type: String,
-    enum: ['User', 'Admin'],
     required: true
   },
   expireAt: {
@@ -25,30 +20,34 @@ const ForgotPasswordSchema = new mongoose.Schema({
     default: Date.now() + 300000
   }
 });
+
 /**
  * static methods
  */
-ForgotPasswordSchema.statics = {
+VerificationSchema.statics = {
   /**
    * - returns the forgot-password object using the users email
    * returns a forgot-password record of an ```email```
    * @param {string} email
    */
-  async get(email, _id) {
-    const forgotPass = await this.findOne({ email, _id });
-    return forgotPass ? forgotPass : null;
+  async get(_id) {
+    const forgotPass = await this.findOne({ _id })
+      .populate('user')
+      .exec();
+    return forgotPass;
   }
 };
 
 /**
  * Instance methods
  */
-ForgotPasswordSchema.method({
+VerificationSchema.method({
   generateToken() {
-    return encodeOtp(this.email, this._id);
+    return encodeSignupOtp(this.email, this._id);
   },
   async checkToken(token) {
     const isValidToken = await bcrypt.compare(token, this.token);
+    console.log(isValidToken);
     if (!isValidToken) {
       throw new APIError({
         status: httpStatus.BAD_REQUEST,
@@ -58,4 +57,4 @@ ForgotPasswordSchema.method({
     return isValidToken;
   }
 });
-module.exports = mongoose.model('Forgot-password', ForgotPasswordSchema);
+module.exports = mongoose.model('Validation', VerificationSchema);

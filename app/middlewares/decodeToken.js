@@ -6,17 +6,18 @@ const { decodeOtp } = require('../../helpers/otpEncoder');
 // decode user token
 module.exports = async (req, res, next) => {
   try {
-    const { email, id, token } = decodeOtp(req, res);
+    const { token } = req.body;
+    const { email, id } = decodeOtp(req);
     const forgotPass = await ForgotPassword.get(email, id);
-    await ForgotPassword.deleteMany({ email }); //delete all existing request by the user
     if (forgotPass) {
       await forgotPass.checkToken(token);
+      await ForgotPassword.deleteMany({ email }); //delete all existing request by the user
       // eslint-disable-next-line require-atomic-updates
       req.password = forgotPass;
       return next();
     }
     return res.json(
-      sendResponse(httpStatus.UNAUTHORIZED, 'Expired link', null)
+      sendResponse(httpStatus.UNAUTHORIZED, 'Token is invalid', null)
     );
   } catch (error) {
     next(error);

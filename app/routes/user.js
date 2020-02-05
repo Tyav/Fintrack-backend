@@ -13,12 +13,12 @@ router.param(
 
 // API /api/v1/user/
 
-// router
-//   .route('/')
-//   .post(
-//     validate(validateParams.userSignup, { abortEarly: false }),
-//     userCtrl.createUser
-//   );
+router
+  .route('/')
+  .post(
+    validate(validateParams.userSignup, { abortEarly: false }),
+    userCtrl.createUser
+  );
 
 // load logged in user
 router.use(decode);
