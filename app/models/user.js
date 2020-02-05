@@ -33,6 +33,10 @@ const UserSchema = new Schema(
     phone: {
       type: String,
       required: true
+    },
+    isVerified: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true }
@@ -75,6 +79,7 @@ UserSchema.method({
       'name',
       'email',
       'phone',
+      'isVerified',
       'createdAt',
       'updatedAt'
     ];
@@ -84,7 +89,8 @@ UserSchema.method({
   token() {
     return EncodeToken(this.email, this._id);
   },
-  sendVerification(token) { //User sends verification token to mail
+  sendVerification(token) {
+    //User sends verification token to mail
     const { email, name } = this;
     mail(email, 'Verify your email', emailVerification({ name, token }));
   }
