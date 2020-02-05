@@ -4,12 +4,15 @@ module.exports = {
   create: {
     body: {
       title: Joi.string()
-        .min(10)
+        .min(1)
         .required(),
       description: Joi.string()
         .min(10)
         .required(),
-      amount: Joi.number().required()
+      amountRequested: Joi.number().required(),
+      category: Joi.string()
+        .regex(/^[a-fA-F0-9]{24}$/)
+        .required()
     }
   }
 };
