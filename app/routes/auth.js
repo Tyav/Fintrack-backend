@@ -19,4 +19,7 @@ router.post(
 );
 
 router.put('/approve_user', decode, authController.approveUser);
+
+router.post('/verifyUser', authController.verifyUser);
+
 module.exports = router;
