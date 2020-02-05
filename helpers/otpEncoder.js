@@ -4,13 +4,24 @@ const { jwtSecret } = require('../config/env');
 const httpStatus = require('http-status');
 const APIError = require('./APIError');
 
-exports.encodeOtp = (token, email, id) => {
+exports.encodeOtp = (email, id) => {
   const payload = {
     exp: moment()
       .add(1, 'days')
       .unix(),
     iat: moment().unix(),
-    token,
+    email,
+    id
+  };
+  return jwt.encode(payload, jwtSecret);
+};
+
+exports.encodeSignupOtp = (email, id) => {
+  const payload = {
+    exp: moment()
+      .add(1, 'days')
+      .unix(),
+    iat: moment().unix(),
     email,
     id
   };
