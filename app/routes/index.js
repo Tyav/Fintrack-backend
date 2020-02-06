@@ -6,6 +6,7 @@ const authRoutes = require('./auth');
 const adminRoutes = require('./admin');
 const forgotPasswordRoutes = require('./forgot-password');
 const fundRoutes = require('./fund');
+const claimRoutes = require('./claim');
 const categoryRoutes = require('./category');
 
 router.use('/health-check', async (req, res, next) => {
@@ -36,5 +37,8 @@ router.use('/fund', fundRoutes);
 
 //mount category routes
 router.use('/category', categoryRoutes);
+
+//mount claim routes
+router.use('/claim', claimRoutes);
 
 module.exports = router;
