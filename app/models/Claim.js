@@ -103,4 +103,4 @@ ClaimSchema.statics = {
 ClaimSchema.method({});
 
 // do not export this model, it is an Example.
-module.exports = mongoose.model('Fund', ClaimSchema);
+module.exports = mongoose.model('Claim', ClaimSchema);
