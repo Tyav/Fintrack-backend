@@ -66,10 +66,33 @@ FundSchema.post('save', function(doc, next) {
       next();
     });
 });
+FundSchema.post('find', async function(docs) {
+  for (let doc of docs)
+    await doc
+      .populate({ path: 'user', select: '-password' })
+      .populate({
+        path: 'category',
+        select: 'title'
+      })
+      .execPopulate();
+});
 /**
  * static methods
  */
-FundSchema.statics = {};
+FundSchema.statics = {
+  getAll() {
+    return this.find();
+  },
+  get(_id) {
+    const fund = this.find({ _id });
+    if (!fund)
+      throw new APIError({
+        message: 'Funding request not found',
+        status: httpStatus.NOT_FOUND
+      });
+    return fund;
+  }
+};
 
 /**
  * Instance methods
