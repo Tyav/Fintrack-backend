@@ -11,7 +11,14 @@ module.exports = {
         .required(),
       amountRequested: Joi.number().required(),
       category: Joi.string()
-        .regex(/^[a-fA-F0-9]{24}$/)
+        .regex(/^[a-fA-F0-9]{24}$/, 'id')
+        .required()
+    }
+  },
+  getOne: {
+    params: {
+      id: Joi.string()
+        .regex(/^[a-fA-F0-9]{24}$/, 'id')
         .required()
     }
   }
