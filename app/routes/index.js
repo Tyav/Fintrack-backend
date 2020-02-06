@@ -5,6 +5,8 @@ const userRoutes = require('./user');
 const authRoutes = require('./auth');
 const adminRoutes = require('./admin');
 const forgotPasswordRoutes = require('./forgot-password');
+const fundRoutes = require('./fund');
+const categoryRoutes = require('./category');
 
 router.use('/health-check', async (req, res, next) => {
   try {
@@ -28,5 +30,11 @@ router.use('/admin', adminRoutes);
 
 //mount forgot password
 router.use('/password', forgotPasswordRoutes);
+
+//mount fund routes
+router.use('/fund', fundRoutes);
+
+//mount category routes
+router.use('/category', categoryRoutes);
 
 module.exports = router;

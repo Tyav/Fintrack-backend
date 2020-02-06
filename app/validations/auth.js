@@ -18,7 +18,7 @@ module.exports = {
         .min(8)
         .required(),
       token: Joi.string()
-        .regex(/^[0-9a-zA-Z]{6}$/)
+        .regex(/^[0-9a-zA-Z]{6}$/, 'token')
         .required()
     }
   }
