@@ -27,7 +27,7 @@
     "cross-env": "^6.0.3",
     "csurf": "^1.10.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.0",
     "express-winston": "^4.0.1",
     "goodid.js": "^1.0.8",
