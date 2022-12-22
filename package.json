@@ -33,7 +33,7 @@
     "goodid.js": "^1.0.8",
     "helmet": "^3.21.1",
     "http-status": "^1.4.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jwt-simple": "^0.5.6",
     "method-override": "^3.0.0",
     "moment-timezone": "^0.5.27",
